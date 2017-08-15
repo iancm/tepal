@@ -20,7 +20,7 @@ typedef uint64_t chromosome_t;
 
 typedef struct genome
 {
-    int n;  /* number of chromosomes per pointer;
+    size_t n;  /* number of chromosomes per pointer;
              * sizeof(genome_t) ~ 2n * sizeof(chromosome_t) + sizeof(int) */
     chromosome_t *left;
     chromosome_t *right;
@@ -28,7 +28,7 @@ typedef struct genome
 
 typedef struct recipe
 {
-    int n;
+    size_t n;
     chromosome_t *code; /* Genetic code of recipe */
     chromosome_t *mask; /* For each bit:
                          * 0: This bit must be same as code
@@ -36,7 +36,7 @@ typedef struct recipe
 } recipe_t;
 
 void gen_free(genome_t *g);     /* Frees a genome             */
-genome_t *gen_alloc(int size);  /* Allocate memory for genome */
+genome_t *gen_alloc(size_t size);  /* Allocate memory for genome */
 int gen_rand(genome_t *g);      /* Randomize chromosomes      */
 int gen_print(genome_t *g);     /* Print chromosomes to s;
                                  * if s==NULL print to stdout */

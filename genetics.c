@@ -41,12 +41,10 @@ chromosome_t gen_xorshift()
  * Allocate memory for a genome of given size
  * Returns NULL if unsuccessful
  */
-genome_t *gen_alloc(int size)
+genome_t *gen_alloc(size_t size)
 {
     genome_t *ptr = NULL;
-    if(size > 0) {
-        ptr = malloc(sizeof(genome_t));
-    }
+    ptr = malloc(sizeof(genome_t));
     if(ptr != NULL) {
         ptr->n = size;
         ptr->left = calloc(size, sizeof(chromosome_t));
@@ -67,7 +65,7 @@ genome_t *gen_alloc(int size)
  */
 int gen_rand(genome_t *g)
 {
-    int i;
+    unsigned int i;
 
     if(g == NULL || g->left == NULL || g->right == NULL) {
         return 0;
@@ -88,7 +86,7 @@ int gen_print(genome_t *g)
 {
     int ret = 0;
     if(g != NULL && g->left != NULL && g->right != NULL) {
-        int i;
+        unsigned int i;
         int r;
         for(i = 0; i < g->n; ++i) {
             r = printf("%d: l = %lx  r = %lx\n", i, g->left[i], g->right[i]);
@@ -108,9 +106,9 @@ int gen_print(genome_t *g)
  *    6 affects usually 0 bits
  */
 static
-void gen_mutate(genome_t *g, int n)
+void gen_mutate(genome_t *g, unsigned int n)
 {
-    int i, j;
+    unsigned int i, j;
     chromosome_t c[2];
 
     if(g == NULL || g->n == 0 || g->left == NULL || g->right == NULL || n <= 0)
@@ -137,7 +135,7 @@ void gen_mutate(genome_t *g, int n)
 static
 chromosome_t *gen_haploid_female(genome_t *g)
 {
-    int n;
+    unsigned int n;
     chromosome_t *ptr;
     if(g == NULL || g->n <= 0 || g->left == NULL || g->right == NULL)
         return NULL;
@@ -165,7 +163,7 @@ chromosome_t *gen_haploid_female(genome_t *g)
 static
 chromosome_t *gen_haploid_male(genome_t *g)
 {
-    int n;
+    unsigned int n;
     chromosome_t *ptr;
     if(g == NULL || g->n <= 0 || g->left == NULL || g->right == NULL)
         return NULL;
@@ -228,7 +226,7 @@ genome_t *gen_sex(genome_t *x, genome_t *y)
  */
 genome_t *gen_make_from_recipe(recipe_t *r)
 {
-    int i;
+    unsigned int i;
     genome_t *ptr;
    
     if(r == NULL || r->n <= 0 || r->code == NULL || r->mask == NULL)
@@ -285,6 +283,9 @@ int main(int argc, char *argv[])
     gen_free(x);
     gen_free(y);
     gen_free(z);
+    
+    free(r.code);
+    free(r.mask);
 
     return 0;
 }
