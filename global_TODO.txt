@@ -3,3 +3,20 @@
 * const it up, baby
 * prototype plant, make it grow
 * prototype I/O (borrow from Kilo?)
+* consider use of malloc vs. calloc
+* standardize return values: functions that return pointers should return
+  NULL on failure; functions that return integers should return negative;
+  functions that return unsigned ints should return 0 on failure.
+* Document standards
+* Document style
+* check alignment/padding in structs
+* rename calyx to tepal
+
+
+Long term goals:
+* Consider use of C99/C11
+* Port to windows
+* Port to C64
+* Port to UNIVAC
+* Make multithreaded
+* Solve P=NP
