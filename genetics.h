@@ -21,10 +21,10 @@ typedef uint64_t chromosome_t;
 typedef struct genome
 {
     size_t n;  /* number of chromosomes per pointer;
-             * sizeof(genome_t) ~ 2n * sizeof(chromosome_t) + sizeof(int) */
+             * sizeof(genome_st) ~ 2n * sizeof(chromosome_t) + sizeof(int) */
     chromosome_t *left;
     chromosome_t *right;
-} genome_t;
+} genome_st;
 
 typedef struct recipe
 {
@@ -33,21 +33,21 @@ typedef struct recipe
     chromosome_t *mask; /* For each bit:
                          * 0: This bit must be same as code
                          * 1: This bit should be random */
-} recipe_t;
+} recipe_st;
 
-void gen_free(genome_t *g);     /* Frees a genome             */
-genome_t *gen_alloc(size_t size);  /* Allocate memory for genome */
-int gen_rand(genome_t *g);      /* Randomize chromosomes      */
-int gen_print(genome_t *g);     /* Print chromosomes to s;
+void gen_free(genome_st *g);     /* Frees a genome             */
+genome_st *gen_alloc(size_t size);  /* Allocate memory for genome */
+int gen_rand(genome_st *g);      /* Randomize chromosomes      */
+int gen_print(genome_st *g);     /* Print chromosomes to s;
                                  * if s==NULL print to stdout */
 
 /* Produces offspring via simulated sexual reproduction
  * with two parent genomes x and y. Requires that n
  * is identical for both parents. Returns NULL if failure.
  */
-genome_t *gen_sex(genome_t *female, genome_t *male);
+genome_st *gen_sex(genome_st *female, genome_st *male);
 
 /* Generates a genome based on a recipe */
-genome_t *gen_make_from_recipe(recipe_t *r);
+genome_st *gen_make_from_recipe(recipe_st *r);
 
 #endif

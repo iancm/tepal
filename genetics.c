@@ -3,7 +3,7 @@
 /*
  * Free a genome, obvs.
  */
-void gen_free(genome_t *ptr)
+void gen_free(genome_st *ptr)
 {
     if(ptr != NULL) {
         free(ptr->left);
@@ -41,10 +41,10 @@ chromosome_t gen_xorshift()
  * Allocate memory for a genome of given size
  * Returns NULL if unsuccessful
  */
-genome_t *gen_alloc(size_t size)
+genome_st *gen_alloc(size_t size)
 {
-    genome_t *ptr = NULL;
-    ptr = malloc(sizeof(genome_t));
+    genome_st *ptr = NULL;
+    ptr = malloc(sizeof(genome_st));
     if(ptr != NULL) {
         ptr->n = size;
         ptr->left = calloc(size, sizeof(chromosome_t));
@@ -63,7 +63,7 @@ genome_t *gen_alloc(size_t size)
  * Randomize genome.
  * Returns 0 if error; else 1
  */
-int gen_rand(genome_t *g)
+int gen_rand(genome_st *g)
 {
     unsigned int i;
 
@@ -82,7 +82,7 @@ int gen_rand(genome_t *g)
  * Print to stdout
  * Returns positive if successful; 0 or negative if failed
  */
-int gen_print(genome_t *g)
+int gen_print(genome_st *g)
 {
     int ret = 0;
     if(g != NULL && g->left != NULL && g->right != NULL) {
@@ -106,7 +106,7 @@ int gen_print(genome_t *g)
  *    6 affects usually 0 bits
  */
 static
-void gen_mutate(genome_t *g, unsigned int n)
+void gen_mutate(genome_st *g, unsigned int n)
 {
     unsigned int i, j;
     chromosome_t c[2];
@@ -133,7 +133,7 @@ void gen_mutate(genome_t *g, unsigned int n)
  * simulate chromosomal crossover.
  */
 static
-chromosome_t *gen_haploid_female(genome_t *g)
+chromosome_t *gen_haploid_female(genome_st *g)
 {
     unsigned int n;
     chromosome_t *ptr;
@@ -161,7 +161,7 @@ chromosome_t *gen_haploid_female(genome_t *g)
  * Instead, chromosome 0 is the full chromosome from either left or right.
  */
 static
-chromosome_t *gen_haploid_male(genome_t *g)
+chromosome_t *gen_haploid_male(genome_st *g)
 {
     unsigned int n;
     chromosome_t *ptr;
@@ -195,9 +195,9 @@ chromosome_t *gen_haploid_male(genome_t *g)
  * The left chromosomes are from parent x; the right are from parent y.
  * x is assumed to be female; y is male.
  */
-genome_t *gen_sex(genome_t *x, genome_t *y)
+genome_st *gen_sex(genome_st *x, genome_st *y)
 {
-    genome_t *ptr = NULL;
+    genome_st *ptr = NULL;
     if(x == NULL || y == NULL || x->n != y->n  ||
             x->left == NULL || y->left == NULL ||
             x->right == NULL || y->right == NULL)
@@ -224,10 +224,10 @@ genome_t *gen_sex(genome_t *x, genome_t *y)
  *  "   "    "   "   "  1 "   "    genome will be random.
  * Return NULL if alloc failed.
  */
-genome_t *gen_make_from_recipe(recipe_t *r)
+genome_st *gen_make_from_recipe(recipe_st *r)
 {
     unsigned int i;
-    genome_t *ptr;
+    genome_st *ptr;
    
     if(r == NULL || r->n <= 0 || r->code == NULL || r->mask == NULL)
         return NULL;
@@ -253,8 +253,8 @@ int main(int argc, char *argv[])
 {
     char *arg;
     int s;
-    genome_t *x, *y, *z;
-    recipe_t r;
+    genome_st *x, *y, *z;
+    recipe_st r;
 
     r.n = 1;
     r.code = malloc(sizeof(chromosome_t));
