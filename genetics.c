@@ -17,7 +17,7 @@ void gen_free(genome_st *ptr)
  * Some xshift function I got off wikipedia
  */
 static
-chromosome_t gen_xorshift()
+chromosome_t gen_xorshift(void)
 {
     static chromosome_t state = 0;
     /* seed */

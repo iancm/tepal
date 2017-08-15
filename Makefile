@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-g -Wall -Wextra -Werror -pedantic
-CFLAGSO=-Wall -Wextra -pedantic -O3
+CFLAGSO=-Wall -Wextra -pedantic -O3 -flto
 STD=-std=c89
 HEADERS=genetics.h
 OBJECTS=genetics.o
