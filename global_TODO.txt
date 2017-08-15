@@ -1,0 +1,5 @@
+* Thoroughly comment
+* Test for undefined behavior, sanitize inputs
+* const it up, baby
+* prototype plant, make it grow
+* prototype I/O (borrow from Kilo?)
